@@ -1,158 +1,273 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { Wrapper } from "./Wrapper";
+import { sizes } from "../../helpers/sizes";
 
-const StyledNav = styled.nav`
-  display: flex;
-  width: 100%;
-
-  padding: 0rem 16rem;
-
-  @media (max-width: 768px) {
-    padding: 1rem 2rem; // Reduce padding on mobile
-  }
-`;
-
-const StyledDesktopNavContainer = styled.nav`
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-
-  gap: 1.4rem;
-
-  @media (max-width: 768px) {
-    display: none;
-  }
-`;
-
-type NavSectionProps = {
-  isMenuOpen: boolean;
+//Global
+export type ScreenType = {
+  isMobile: boolean;
 };
 
-const StyledNavSection = styled.div<NavSectionProps>`
+export const StyledMainNavContainer = styled.nav`
+  margin: 0rem 1rem;
+`;
+
+export const StyledIconButtonsContainer = styled.div`
   display: flex;
-  gap: 1.4rem;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 1.2rem;
+`;
 
-  align-items: center;
+export const StyledSiteLogo = styled.button`
+  z-index: 999;
 
-  @media (max-width: 768px) {
-    display: ${(props) =>
-      props.isMenuOpen ? "flex" : "none"}; // Conditional display based on state
-    flex-direction: column; // Stack items vertically on mobile
+  background: none;
+  border: none;
+  padding-left: 2.4rem;
+
+  img {
+    width: 200px;
+  }
+
+  @media (max-width: ${sizes.xSmall}) {
+    img {
+      width: 150px;
+    }
   }
 `;
 
-const StyledButtonsSection = styled.div`
-  display: flex;
-  align-items: center;
-
-  gap: 2rem;
-`;
-
-type LinksSectionProps = {
-  fontSize: number;
-};
-
-const StyledLinksSection = styled.ul<LinksSectionProps>`
-  display: flex;
-  width: 100%;
-  justify-content: flex-start;
-  gap: 1rem;
+export const StyledIconButton = styled.button`
+  background: none;
+  border: none;
   padding: 0;
-  margin: 0;
+  cursor: pointer;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  div img {
+    width: 20px;
+  }
+
+  div h2 {
+    font-size: 0.8rem;
+    font-weight: 400;
+  }
+
+  @media (max-width: ${sizes.xSmall}) {
+    div img {
+      width: 15px;
+    }
+
+    div h2 {
+      font-size: 0.6rem;
+    }
+  }
+`;
+
+export const StyledCategoryContainer = styled.ul`
+  display: flex;
+  width: 100%;
+  height: auto;
+  flex-wrap: wrap;
+  gap: 1.5rem;
 
   list-style-type: none;
 
-  font-size: ${(props) => props.fontSize}rem;
-`;
-
-const NavItemLink = styled.a`
-  color: black;
-  text-decoration: none;
-  &:hover {
-    text-decoration: underline;
+  @media (min-width: ${sizes.medium}) {
+    flex-wrap: no-wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
   }
 `;
 
-const StyledMobileNavContainer = styled.nav`
-  display: none;
-  width: 100%;
+export const StyledCategoryLink = styled.li`
+  display: inline-block;
+  padding: 0.4rem 1.2rem;
+  border-radius: 30%;
+  box-shadow: 0px 1px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  a {
+    text-decoration: none;
+    display: block;
+  }
+
+  @media (min-width: ${sizes.medium}) {
+    padding: 0rem;
+    border-radius: 0%;
+    box-shadow: none;
+    font-size: 0.8rem;
+    a {
+      text-decoration: none;
+      display: block;
+    }
+  }
+`;
+
+export const StyledNavLinksContainer = styled.ul`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
+
+  list-style-type: none;
+
+  @media (min-width: ${sizes.medium}) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 1.4rem;
+    font-size: 0.85rem;
+  }
+`;
+
+export const StyledLink = styled.li`
+  a {
+    text-decoration: none;
+  }
+`;
+
+//Large Screens
+export const StyledDesktopNavContainer = styled.nav`
+  display: flex;
+  flex-direction: column;
+  margin: 0rem 14rem;
+  gap: 0rem;
+
+  @media (max-width: ${sizes.medium}) {
+    display: none;
+  }
+
+  @media (max-width: ${sizes.large}) {
+    margin: 0rem 4rem;
+    gap: 1rem;
+  }
+`;
+
+export const StyledLowerNavContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   justify-content: space-between;
 
-  @media (max-width: 768px) {
-    display: flex;
+  @media (max-width: ${sizes.large}) {
+    gap: 1.4rem;
   }
 `;
 
-export const Hamburger = styled.div`
+export const StyledLowerNavLeftContainer = styled.div`
+  display: flex;
+
+  @media (max-width: ${sizes.large}) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
+`;
+
+//Smaller Screens
+export const StyledMobileNavContainer = styled.nav`
   display: none;
+
+  @media (max-width: ${sizes.small}) {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0.5rem 0.1rem;
+  }
+`;
+
+//Hamburger
+export const StyledHamburgerButton = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center
+  cursor: pointer;
   z-index: 1000;
 
-  @media (max-width: 768px) {
-    display: block;
-    cursor: pointer;
+  h2{
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: 400;
+  }
+
+  @media (max-width: ${sizes.xSmall}) {
+    h2{
+        font-size: 0.6rem;
+      }
   }
 `;
 
-export const HamburgerIcon = styled.div`
+export const StyledHamburgerLine = styled.div`
   background-color: black;
-  width: 30px;
-  height: 3px;
-  margin: 6px 0;
+  width: 1.5rem;
+  height: 0.2rem;
+  margin: 0.3rem 0 0;
   transition: 0.4s;
+
+  @media (max-width: ${sizes.xSmall}) {
+    width: 1.4rem;
+    height: 0.15rem;
+    margin: 0.25rem 0 0;
+  }
 `;
 
-export const HamburgerMenu = styled.div<{ isOpen: boolean }>`
-  position: fixed; // Use fixed positioning to cover the viewport
+export const StyledHamburgerMenu = styled.div<{ isOpen: boolean }>`
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: white;
   width: 100%;
   height: 100%;
+
+  padding-top: 1rem;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+  gap: 0.8rem;
+
+  background-color: white;
+
   transition: transform 0.3s ease-in-out;
   transform: ${({ isOpen }) =>
     isOpen ? "translateX(0)" : "translateX(-100%)"};
   z-index: 10; // Ensure it's above other content
 `;
 
-type MobileLinksSectionProps = {
-  flexDirection?: "row" | "column";
-  justifyContent: "center" | "flex-start" | "flex-end";
-  alignItems: "center" | "flex-start" | "flex-end";
-  gap: number;
-};
+export const StyledHamburgerSignInSection = styled.div`
+  width: 100%;
+  padding-left: 2rem;
+  box-shadow: 0px 1px rgba(0, 0, 0, 0.1);
 
-const StyledMobileLinksSection = styled.ul<MobileLinksSectionProps>`
-  display: flex;
-  flex-direction: ${(props) => props.flexDirection};
-  justify-content: ${(props) => props.justifyContent};
-  align-items: ${(props) => props.alignItems};
-  gap: ${(props) => props.gap}rem;
+  button {
+    border: none;
+    background: none;
 
-  list-style-type: none;
-`;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 
-const StyledButton = styled.button`
-  border: none;
-  background: none;
-  padding: 1.8rem 1.4rem;
-  font-size: 1.6rem;
-  cursor: pointer;
-  text-decoration: underline;
+    img {
+      width: 1.4rem;
+    }
 
-  // Additional styles for hover, focus, etc., can be added for better UX
-  &:hover,
-  &:focus {
-    text-decoration: none; // Example: remove underline on hover/focus, adjust as needed
+    h2 {
+      font-size: 1.2rem;
+      font-weight: 400;
+    }
   }
 `;
 
+//Temp Data
 const topNavItems = [
   { id: 1, name: "Trout", url: "/trout" },
   { id: 2, name: "Salmon", url: "/salmon" },
@@ -169,100 +284,123 @@ const bottomNavItems = [
   { id: 4, name: "Value your Trout", url: "/cod" },
   { id: 5, name: "Trout reviews", url: "/herring" },
   { id: 6, name: "Trout Leasing", url: "/mackarel" },
-  { id: 7, name: "EF Trout", url: "/perch" },
-  { id: 8, name: "EF Trout", url: "/perch" },
 ];
 
 export const Navigation = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
 
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const toggleMenu = () => setIsHamburgerOpen(!isHamburgerOpen);
 
   return (
-    <Wrapper
-      width={100}
-      height={10}
-      flex={true}
-      flexDirection="row"
-      justifyContent="center"
-      alignItems="flex-start"
-      gap={40}
-    >
-      <StyledNav>
-        <StyledDesktopNavContainer>
-          <StyledLinksSection fontSize={0.8}>
+    <StyledMainNavContainer>
+      <StyledDesktopNavContainer>
+        <StyledCategoryContainer>
+          {topNavItems.map((item) => (
+            <StyledCategoryLink key={item.id}>
+              <a href={item.url} onClick={() => console.log("Click!")}>
+                {item.name}
+              </a>
+            </StyledCategoryLink>
+          ))}
+        </StyledCategoryContainer>
+
+        <StyledLowerNavContainer>
+          <StyledLowerNavLeftContainer>
+            <StyledSiteLogo onClick={() => console.log("Route me!")}>
+              <img src="../images/icons/TroutTrader.png"></img>
+            </StyledSiteLogo>
+            <StyledNavLinksContainer>
+              {bottomNavItems.map((item) => (
+                <StyledLink key={item.id}>
+                  <a href={item.url} onClick={() => console.log("Click!")}>
+                    {item.name}
+                  </a>
+                </StyledLink>
+              ))}
+            </StyledNavLinksContainer>
+          </StyledLowerNavLeftContainer>
+
+          <StyledIconButtonsContainer>
+            <StyledIconButton onClick={() => console.log("Save me!")}>
+              <div>
+                <img src="../images/icons/heart.png"></img>
+                <h2>Saved</h2>
+              </div>
+            </StyledIconButton>
+            <StyledIconButton onClick={() => console.log("Sign me!")}>
+              <div>
+                <img src="../images/icons/user.png"></img>
+                <h2>Sign in</h2>
+              </div>
+            </StyledIconButton>
+          </StyledIconButtonsContainer>
+        </StyledLowerNavContainer>
+      </StyledDesktopNavContainer>
+
+      <StyledMobileNavContainer>
+        <StyledIconButtonsContainer>
+          <StyledHamburgerButton onClick={toggleMenu}>
+            <StyledHamburgerLine />
+            <StyledHamburgerLine />
+            <StyledHamburgerLine />
+            <h2>Menu</h2>
+          </StyledHamburgerButton>
+          <StyledIconButton onClick={() => console.log("Save me!")}>
+            <div>
+              <img src="../images/icons/package.png"></img>
+              <h2>Sell</h2>
+            </div>
+          </StyledIconButton>
+        </StyledIconButtonsContainer>
+
+        <StyledSiteLogo onClick={() => console.log("Route me!")}>
+          <img src="../images/icons/TroutTrader.png"></img>
+        </StyledSiteLogo>
+
+        <StyledIconButtonsContainer>
+          <StyledIconButton onClick={() => console.log("Save me!")}>
+            <div>
+              <img src="../images/icons/heart.png"></img>
+              <h2>Saved</h2>
+            </div>
+          </StyledIconButton>
+          <StyledIconButton onClick={() => console.log("Sign me!")}>
+            <div>
+              <img src="../images/icons/user.png"></img>
+              <h2>Sign in</h2>
+            </div>
+          </StyledIconButton>
+        </StyledIconButtonsContainer>
+
+        <StyledHamburgerMenu isOpen={isHamburgerOpen}>
+          <StyledHamburgerSignInSection>
+            <button>
+              <img src="../images/icons/heart.png"></img>
+              <h2>Sign up or sign in</h2>
+            </button>
+          </StyledHamburgerSignInSection>
+
+          <StyledCategoryContainer>
             {topNavItems.map((item) => (
-              <li key={item.id}>
-                <NavItemLink href={item.url}>{item.name}</NavItemLink>
-              </li>
+              <StyledCategoryLink key={item.id}>
+                <a href={item.url} onClick={() => console.log("Click!")}>
+                  {item.name}
+                </a>
+              </StyledCategoryLink>
             ))}
-          </StyledLinksSection>
-          <StyledNavSection isMenuOpen={isMenuOpen}>
-            <a href="https://google.com">TroutTrader</a>
-            <StyledLinksSection fontSize={0.9}>
-              {bottomNavItems.map((item) => (
-                <li key={item.id}>
-                  <NavItemLink href={item.url}>{item.name}</NavItemLink>
-                </li>
-              ))}
-            </StyledLinksSection>
-            <StyledButtonsSection>
-              <a href="https://google.com">Saved</a>
-              <a href="https://google.com">Sign in</a>
-            </StyledButtonsSection>
-          </StyledNavSection>
-        </StyledDesktopNavContainer>
+          </StyledCategoryContainer>
 
-        <StyledMobileNavContainer>
-          <StyledButtonsSection>
-            <Hamburger onClick={toggleMenu}>
-              <HamburgerIcon />
-              <HamburgerIcon />
-              <HamburgerIcon />
-            </Hamburger>
-            <a href="https://google.com">Sell</a>
-          </StyledButtonsSection>
-
-          <a href="https://google.com">TroutTrader</a>
-
-          <StyledButtonsSection>
-            <a href="https://google.com">Saved</a>
-            <a href="https://google.com">Sign in</a>
-          </StyledButtonsSection>
-
-          <HamburgerMenu isOpen={isMenuOpen}>
-            <StyledButton>Sign up or sign in</StyledButton>
-            <StyledMobileLinksSection
-              flexDirection="row"
-              justifyContent="flex-start"
-              alignItems="center"
-              gap={0.8}
-            >
-              {topNavItems.map((item) => (
-                <li key={item.id}>
-                  <NavItemLink href={item.url} onClick={toggleMenu}>
-                    {item.name}
-                  </NavItemLink>
-                </li>
-              ))}
-            </StyledMobileLinksSection>
-            <StyledMobileLinksSection
-              flexDirection="column"
-              justifyContent="flex-start"
-              alignItems="flex-start"
-              gap={1.4}
-            >
-              {bottomNavItems.map((item) => (
-                <li key={item.id}>
-                  <NavItemLink href={item.url} onClick={toggleMenu}>
-                    {item.name}
-                  </NavItemLink>
-                </li>
-              ))}
-            </StyledMobileLinksSection>
-          </HamburgerMenu>
-        </StyledMobileNavContainer>
-      </StyledNav>
-    </Wrapper>
+          <StyledNavLinksContainer>
+            {bottomNavItems.map((item) => (
+              <StyledLink key={item.id}>
+                <a href={item.url} onClick={() => console.log("Click!")}>
+                  {item.name}
+                </a>
+              </StyledLink>
+            ))}
+          </StyledNavLinksContainer>
+        </StyledHamburgerMenu>
+      </StyledMobileNavContainer>
+    </StyledMainNavContainer>
   );
 };

@@ -7,6 +7,7 @@ type WrapperProps = {
   flexDirection: "row" | "column";
   justifyContent: "center" | "flex-start" | "flex-end";
   alignItems: "center" | "flex-start" | "flex-end";
+  margin: string;
   gap: number;
   children?: React.ReactNode;
 };
@@ -18,7 +19,11 @@ const StyledWrapper = styled.div<WrapperProps>`
   flex-direction: ${(props) => props.flexDirection};
   justify-content: ${(props) => props.justifyContent};
   align-items: ${(props) => props.alignItems};
+  margin-right: 5rem;
+  margin-left: 5rem;
   gap: ${(props) => props.gap}px;
+
+  background-color: blue;
 
 `;
 
@@ -29,6 +34,7 @@ export const Wrapper = ({
   flexDirection,
   justifyContent,
   alignItems,
+  margin,
   gap,
   children,
 }: WrapperProps) => {
@@ -40,6 +46,7 @@ export const Wrapper = ({
       flexDirection={flexDirection}
       justifyContent={justifyContent}
       alignItems={alignItems}
+      margin={margin}
       gap={gap}
     >
       {children}
