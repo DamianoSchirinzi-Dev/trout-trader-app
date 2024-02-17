@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { sizes } from "../../helpers/sizes";
 import { colors } from "../../helpers/colors";
@@ -6,6 +6,7 @@ import { colors } from "../../helpers/colors";
 //#region Global Components
 export const StyledSiteLogo = styled.button`
   z-index: 999;
+  cursor: pointer;
 
   background: none;
   border: none;
@@ -43,7 +44,9 @@ export const StyledIconButton = styled.button`
   border: none;
   padding: 0;
   cursor: pointer;
-  color: ${colors.mainfont} div {
+  color: ${colors.mainfont};
+
+  div {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -197,9 +200,6 @@ export const StyledMobileNavContainer = styled.nav`
 //#endregion
 
 //#region Hamburger Menu
-
-//#endregion
-
 export const StyledHamburgerButton = styled.div`
   display: flex;
   flex-direction: column;
@@ -276,12 +276,14 @@ export const StyledHamburgerSignInSection = styled.div`
     }
 
     h2 {
+      color: ${colors.mainfont};
       font-size: 1rem;
       font-weight: 400;
     }
   }
 `;
 
+//#endregion
 //#endregion
 
 //#region Temp Data
@@ -309,6 +311,18 @@ export const Navigation = () => {
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
 
   const toggleMenu = () => setIsHamburgerOpen(!isHamburgerOpen);
+
+  useEffect(() => {
+    if (isHamburgerOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "visible";
+    }
+
+    return () => {
+      document.body.style.overflow = "visible";
+    };
+  }, [isHamburgerOpen]);
 
   return (
     <StyledMainNavContainer>
