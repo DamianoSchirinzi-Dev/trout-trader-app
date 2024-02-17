@@ -3,23 +3,7 @@ import styled from "styled-components";
 import { sizes } from "../../helpers/sizes";
 import { colors } from "../../helpers/colors";
 
-//Global
-export type ScreenType = {
-  isMobile: boolean;
-};
-
-export const StyledMainNavContainer = styled.nav`
-  margin: 0rem 1rem;
-`;
-
-export const StyledIconButtonsContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 1.2rem;
-`;
-
+//#region Global Components
 export const StyledSiteLogo = styled.button`
   z-index: 999;
 
@@ -39,14 +23,27 @@ export const StyledSiteLogo = styled.button`
     }
   }
 `;
+//#endregion
+
+//#region Buttons
+export const StyledIconButtonsContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0.8rem;
+
+  @media (max-width: ${sizes.xSmall}) {
+    padding-top: 0.4rem;
+  }
+`;
 
 export const StyledIconButton = styled.button`
   background: none;
   border: none;
   padding: 0;
   cursor: pointer;
-
-  div {
+  color: ${colors.mainfont} div {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -64,20 +61,26 @@ export const StyledIconButton = styled.button`
 
   @media (max-width: ${sizes.xSmall}) {
     div img {
-      width: 15px;
+      width: 20px;
     }
 
     div h2 {
-      font-size: 0.6rem;
+      font-size: 0.8rem;
     }
   }
+`;
+//#endregion
+
+//#region Navigation Components
+//#region Global Navigation Components
+export const StyledMainNavContainer = styled.nav`
+  margin: 0rem 1rem;
 `;
 
 export const StyledCategoryContainer = styled.ul`
   display: flex;
-  width: 100%;
-  height: auto;
   flex-wrap: wrap;
+  padding-right: 0.5rem;
   gap: 1.5rem;
 
   list-style-type: none;
@@ -92,11 +95,11 @@ export const StyledCategoryContainer = styled.ul`
 export const StyledCategoryLink = styled.li`
   display: inline-block;
   padding: 0.4rem 1.2rem;
-  border-radius: 9999px; 
-  box-shadow: 1px 3px 3px 1px rgba(0, 0, 0, 0.3); 
+  border-radius: 9999px;
+  box-shadow: 1px 3px 3px 1px rgba(0, 0, 0, 0.3);
   text-align: center;
   font-size: 0.7rem;
-  
+
   a {
     text-decoration: none;
     display: block;
@@ -132,14 +135,16 @@ export const StyledNavLinksContainer = styled.ul`
   }
 `;
 
-export const StyledLink = styled.li`
+export const StyledNavLink = styled.li`
   a {
     text-decoration: none;
     color: ${colors.mainfont};
   }
 `;
 
-//Large Screens
+//#endregion
+
+//#region Navigation Large Screens
 export const StyledDesktopNavContainer = styled.nav`
   display: flex;
   flex-direction: column;
@@ -176,8 +181,9 @@ export const StyledLowerNavLeftContainer = styled.div`
     gap: 0.6rem;
   }
 `;
+//#endregion
 
-//Smaller Screens
+//#region Navigation Mobile
 export const StyledMobileNavContainer = styled.nav`
   display: none;
 
@@ -188,8 +194,12 @@ export const StyledMobileNavContainer = styled.nav`
     padding: 0.5rem 0.1rem;
   }
 `;
+//#endregion
 
-//Hamburger
+//#region Hamburger Menu
+
+//#endregion
+
 export const StyledHamburgerButton = styled.div`
   display: flex;
   flex-direction: column;
@@ -206,7 +216,7 @@ export const StyledHamburgerButton = styled.div`
 
   @media (max-width: ${sizes.xSmall}) {
     h2{
-        font-size: 0.6rem;
+        font-size: 0.8rem;
       }
   }
 `;
@@ -259,7 +269,7 @@ export const StyledHamburgerSignInSection = styled.div`
 
     display: flex;
     align-items: center;
-    gap: .6rem;
+    gap: 0.6rem;
 
     img {
       width: 1.1rem;
@@ -272,7 +282,9 @@ export const StyledHamburgerSignInSection = styled.div`
   }
 `;
 
-//Temp Data
+//#endregion
+
+//#region Temp Data
 const topNavItems = [
   { id: 1, name: "Trout", url: "/trout" },
   { id: 2, name: "Salmon", url: "/salmon" },
@@ -290,6 +302,8 @@ const bottomNavItems = [
   { id: 5, name: "Trout reviews", url: "/herring" },
   { id: 6, name: "Trout Leasing", url: "/mackarel" },
 ];
+
+//#endregion
 
 export const Navigation = () => {
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
@@ -316,11 +330,11 @@ export const Navigation = () => {
             </StyledSiteLogo>
             <StyledNavLinksContainer>
               {bottomNavItems.map((item) => (
-                <StyledLink key={item.id}>
+                <StyledNavLink key={item.id}>
                   <a href={item.url} onClick={() => console.log("Click!")}>
                     {item.name}
                   </a>
-                </StyledLink>
+                </StyledNavLink>
               ))}
             </StyledNavLinksContainer>
           </StyledLowerNavLeftContainer>
@@ -397,11 +411,11 @@ export const Navigation = () => {
 
           <StyledNavLinksContainer>
             {bottomNavItems.map((item) => (
-              <StyledLink key={item.id}>
+              <StyledNavLink key={item.id}>
                 <a href={item.url} onClick={() => console.log("Click!")}>
                   {item.name}
                 </a>
-              </StyledLink>
+              </StyledNavLink>
             ))}
           </StyledNavLinksContainer>
         </StyledHamburgerMenu>
