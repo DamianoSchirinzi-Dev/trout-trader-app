@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { sizes } from "../../helpers/sizes";
+import { colors } from "../../helpers/colors";
 
 //Global
 export type ScreenType = {
@@ -31,6 +32,8 @@ export const StyledSiteLogo = styled.button`
   }
 
   @media (max-width: ${sizes.xSmall}) {
+    padding-left: 0rem;
+
     img {
       width: 150px;
     }
@@ -89,12 +92,15 @@ export const StyledCategoryContainer = styled.ul`
 export const StyledCategoryLink = styled.li`
   display: inline-block;
   padding: 0.4rem 1.2rem;
-  border-radius: 30%;
-  box-shadow: 0px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 9999px; 
+  box-shadow: 1px 3px 3px 1px rgba(0, 0, 0, 0.3); 
   text-align: center;
+  font-size: 0.7rem;
+  
   a {
     text-decoration: none;
     display: block;
+    color: ${colors.mainfont};
   }
 
   @media (min-width: ${sizes.medium}) {
@@ -129,6 +135,7 @@ export const StyledNavLinksContainer = styled.ul`
 export const StyledLink = styled.li`
   a {
     text-decoration: none;
+    color: ${colors.mainfont};
   }
 `;
 
@@ -227,8 +234,6 @@ export const StyledHamburgerMenu = styled.div<{ isOpen: boolean }>`
   width: 100%;
   height: 100%;
 
-  padding-top: 1rem;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -239,7 +244,7 @@ export const StyledHamburgerMenu = styled.div<{ isOpen: boolean }>`
 
   transition: transform 0.3s ease-in-out;
   transform: ${({ isOpen }) =>
-    isOpen ? "translateX(0)" : "translateX(-100%)"};
+    isOpen ? "translateX(0)" : "translateX(-120%)"};
   z-index: 10; // Ensure it's above other content
 `;
 
@@ -254,14 +259,14 @@ export const StyledHamburgerSignInSection = styled.div`
 
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: .6rem;
 
     img {
-      width: 1.4rem;
+      width: 1.1rem;
     }
 
     h2 {
-      font-size: 1.2rem;
+      font-size: 1rem;
       font-weight: 400;
     }
   }
